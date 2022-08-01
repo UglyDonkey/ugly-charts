@@ -1,0 +1,11 @@
+groups:
+  - name: empty
+    description: it's empty
+
+questions:
+  - variable: name
+    label: your name
+    schema:
+      type: string
+      default: no one
+    group: empty
