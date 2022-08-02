@@ -8,12 +8,12 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: 143
-      targetPort: IMAP
+      targetPort: imap
       protocol: TCP
-      name: IMAP
+      name: imap
     - port: 993
-      targetPort: IMAP_SSL
+      targetPort: imap-ssl
       protocol: TCP
-      name: IMAP_SSL
+      name: imap-ssl
   selector:
     {{- include "mail-backup.selectorLabels" . | nindent 4 }}
