@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "mail-backup.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: NodePort
   ports:
     - port: 143
       targetPort: imap
