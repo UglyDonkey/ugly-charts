@@ -11,9 +11,11 @@ spec:
       targetPort: imap
       protocol: TCP
       name: imap
+      nodePort: 143
     - port: 993
       targetPort: imap-ssl
       protocol: TCP
       name: imap-ssl
+      nodePort: 993
   selector:
     {{- include "mail-backup.selectorLabels" . | nindent 4 }}
