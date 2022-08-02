@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mail-backup.fullname" . }}
+  labels:
+    {{- include "mail-backup.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "mail-backup.selectorLabels" . | nindent 6 }}
+  template:
+    spec:
+      containers:
+        - name: mail-server
+          image: "dovecot/dovecot:2.3.19.1"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: IMAP
+              containerPort: 143
+              protocol: TCP
+            - name: IMAP_SSL
+              containerPort: 993
+              protocol: TCP
