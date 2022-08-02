@@ -22,3 +22,6 @@ spec:
             - name: imap-ssl
               containerPort: 993
               protocol: TCP
+    metadata:
+      labels:
+        {{- include "mail-backup.labels" . | nindent 8 }}
