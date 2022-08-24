@@ -1,0 +1,24 @@
+groups:
+  - name: Configuration
+    description: Configuration
+
+questions:
+  - variable: schedule
+    group: Configuration
+    label: Schedule in cron format
+    schema:
+      type: string
+      default: "0 0 * * *"
+      required: true
+  - variable: secretsPath
+    group: Configuration
+    label: Path with secrets
+    schema:
+      type: hostpath
+      required: true
+  - variable: snapshotsPath
+    group: Configuration
+    label: Path with snapshots
+    schema:
+      type: hostpath
+      required: true
