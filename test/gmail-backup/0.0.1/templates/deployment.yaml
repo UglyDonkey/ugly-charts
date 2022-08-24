@@ -27,3 +27,4 @@ spec:
               hostPath:
                 path: {{ .Values.snapshotsPath }}
                 type: Directory
+          restartPolicy: Never
