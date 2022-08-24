@@ -7,30 +7,28 @@ metadata:
 spec:
   schedule: {{ .Values.schedule }}
   concurrencyPolicy: Forbid
-  selector:
-    matchLabels:
-      {{- include "gmail-backup.selectorLabels" . | nindent 6 }}
-  template:
+  jobTemplate:
     spec:
-      containers:
-        - name: mail-server
-          image: "uglydonkey/gmail-backup:0.1.5"
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
+      template:
+        spec:
+          containers:
+            - name: gmail-backup-snapshot-create
+              image: "uglydonkey/gmail-backup:0.1.5"
+              imagePullPolicy: IfNotPresent
+              volumeMounts:
+                - name: secrets
+                  mountPath: /data/secrets
+                - name: snapshots
+                  mountPath: /data/snapshots
+          volumes:
             - name: secrets
-              mountPath: /data/secrets
+              hostPath:
+                path: {{ .Values.secretsPath }}
+                type: Directory
             - name: snapshots
-              mountPath: /data/snapshots
-
-      volumes:
-        - name: secrets
-          hostPath:
-            path: {{ .Values.secretsPath }}
-            type: Directory
-        - name: snapshots
-          hostPath:
-            path: {{ .Values.snapshotsPath }}
-            type: Directory
-    metadata:
-      labels:
-        {{- include "gmail-backup.labels" . | nindent 8 }}
+              hostPath:
+                path: {{ .Values.snapshotsPath }}
+                type: Directory
+        metadata:
+          labels:
+            {{- include "gmail-backup.labels" . | nindent 12 }}
