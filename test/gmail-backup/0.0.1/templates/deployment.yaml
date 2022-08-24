@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
             - name: gmail-backup-snapshot-create
-              image: "uglydonkey/gmail-backup:0.1.5"
+              image: "uglydonkey/gmail-backup:0.1.6"
               imagePullPolicy: IfNotPresent
               volumeMounts:
                 - name: secrets
