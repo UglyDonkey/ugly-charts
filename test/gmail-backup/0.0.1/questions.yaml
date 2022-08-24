@@ -8,9 +8,6 @@ questions:
     label: Schedule
     schema:
       type: cron
-      default:
-        minute: 0
-        hour: 0
       required: true
   - variable: secretsPath
     group: Configuration
