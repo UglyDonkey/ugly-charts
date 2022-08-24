@@ -5,9 +5,9 @@ groups:
 questions:
   - variable: schedule
     group: Configuration
-    label: Schedule in cron format
+    label: Schedule
     schema:
-      type: string
+      type: cron
       default: "0 0 * * *"
       required: true
   - variable: secretsPath

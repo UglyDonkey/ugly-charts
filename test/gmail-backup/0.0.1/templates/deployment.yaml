@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: CronJob
 metadata:
   name: {{ include "gmail-backup.fullname" . }}
-  labels:
-    {{- include "gmail-backup.labels" . | nindent 4 }}
 spec:
   schedule: {{ .Values.schedule }}
   concurrencyPolicy: Forbid
@@ -29,6 +27,3 @@ spec:
               hostPath:
                 path: {{ .Values.snapshotsPath }}
                 type: Directory
-        metadata:
-          labels:
-            {{- include "gmail-backup.labels" . | nindent 12 }}
