@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: {{ include "gmail-backup.fullname" . }}
 spec:
-  schedule: {{ .Values.schedule }}
+  schedule: "{{ .Values.schedule }}"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
