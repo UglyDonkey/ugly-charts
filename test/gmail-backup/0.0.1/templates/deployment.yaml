@@ -9,6 +9,9 @@ spec:
     spec:
       template:
         spec:
+          securityContext:
+            runAsUser: {{ .Values.ownerUID }}
+            runAsGroup: {{ .Values.ownerGID }}
           containers:
             - name: gmail-backup-snapshot-create
               image: "uglydonkey/gmail-backup:0.1.6"
@@ -18,13 +21,14 @@ spec:
                   mountPath: /data/secrets
                 - name: snapshots
                   mountPath: /data/snapshots
+
           volumes:
             - name: secrets
               hostPath:
                 path: {{ .Values.secretsPath }}
-                type: Directory
+                type: DirectoryOrCreate
             - name: snapshots
               hostPath:
                 path: {{ .Values.snapshotsPath }}
-                type: Directory
+                type: DirectoryOrCreate
           restartPolicy: Never
