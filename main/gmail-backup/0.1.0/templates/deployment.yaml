@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "gmail-backup.fullname" . }}
+spec:
+  schedule: "{{ .Values.schedule }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            runAsUser: {{ .Values.ownerUID }}
+            runAsGroup: {{ .Values.ownerGID }}
+            fsGroup: {{ .Values.fsGroup }}
+          containers:
+            - name: gmail-backup-snapshot-create
+              image: "uglydonkey/gmail-backup:0.1.8"
+              imagePullPolicy: IfNotPresent
+              volumeMounts:
+                - name: secrets
+                  mountPath: /data/secrets
+                - name: snapshots
+                  mountPath: /data/snapshots
+
+          volumes:
+            - name: secrets
+              hostPath:
+                path: {{ .Values.secretsPath }}
+                type: DirectoryOrCreate
+            - name: snapshots
+              hostPath:
+                path: {{ .Values.snapshotsPath }}
+                type: DirectoryOrCreate
+          restartPolicy: Never
